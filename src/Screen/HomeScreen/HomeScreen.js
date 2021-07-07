@@ -1,100 +1,76 @@
-import { FlexColumn, InnerSection } from "../../Global.Styles";
+import {FlexColumn, InnerSection, SpinnerContainer} from "../../Global.Styles";
 import {
-  CardsContainer,
-  Description,
-  HeroSection,
-  InnerHeroSection,
-  LoadMore,
-  MoviesTitle,
-  Title,
+    CardsContainer,
+    Description,
+    HeroSection,
+    InnerHeroSection,
+    LoadMore,
+    MoviesTitle,
+    Title,
 } from "./HomeScreen.Styles";
 import Card from "../../Components/Card/Card";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getMovies} from "../../Components/Redux/Movie/movieActions";
 
 function HomeScreen(props) {
-  return (
-    <FlexColumn>
-      <HeroSection
-        img={"http://image.tmdb.org/t/p/w1280/620hnMVLu6RSZW6a5rwO8gqpt0t.jpg"}
-      >
-        <InnerHeroSection>
-          <Title>Title</Title>
-          <Description>
-            This is just a film description to get from the api
-          </Description>
-        </InnerHeroSection>
-      </HeroSection>
-      <InnerSection>
-        <MoviesTitle>Popular Movies</MoviesTitle>
-        <CardsContainer>
-          <Card
-            key={1}
-            id={""}
-            name={"img"}
-            img={
-              "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
-            }
-          />
-          <Card
-            key={1}
-            id={""}
-            name={"img"}
-            img={
-              "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
-            }
-          />
-          <Card
-            key={1}
-            id={""}
-            name={"img"}
-            img={
-              "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
-            }
-          />
-          <Card
-            key={1}
-            id={""}
-            name={"img"}
-            img={
-              "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
-            }
-          />
-          <Card
-            key={1}
-            id={""}
-            name={"img"}
-            img={
-              "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
-            }
-          />
-          <Card
-            key={1}
-            id={""}
-            name={"img"}
-            img={
-              "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
-            }
-          />
-          <Card
-            key={1}
-            id={""}
-            name={"img"}
-            img={
-              "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
-            }
-          />
-          <Card
-            key={1}
-            id={""}
-            name={"img"}
-            img={
-              "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
-            }
-          />
-        </CardsContainer>
-        <LoadMore isLoading={false}>Load more...</LoadMore>
-      </InnerSection>
-    </FlexColumn>
-  );
+    const dispatch = useDispatch();
+    const state = useSelector((state) => state);
+    // const isLoading = return state.movie.isLoading;
+    let movies = [];
+    const [page, setPage] = useState(1)
+    let mov = []
+    useEffect(() => {
+        dispatch(getMovies(page, movies))
+    }, [dispatch])
+
+    const Movies = state.moviesState.movies
+
+    //  const movies=[];
+    //   const LoadMore=[];
+    useEffect(() => {
+        dispatch(getMovies(page, mov))
+    }, [dispatch]);//.store.result.data
+    return (
+        <FlexColumn>
+            <HeroSection
+                img={"http://image.tmdb.org/t/p/w1280/620hnMVLu6RSZW6a5rwO8gqpt0t.jpg"}
+            >
+                <InnerHeroSection>
+                    <Title>Title</Title>
+                    <Description>
+                        This is just a film description to get from the api
+                    </Description>
+                </InnerHeroSection>
+            </HeroSection>
+            <InnerSection>
+                <MoviesTitle>Popular Movies</MoviesTitle>
+                {state.moviesState.isLoading ? (<SpinnerContainer/>) : (
+                    <CardsContainer>
+
+                        {Movies.map((item) =>
+                            <Card
+                                key={item.id}
+                                id={item.id}
+                                to={'/movie/' + item.id + "/" + item.title}
+                                name={"img"}
+                                poster_path={
+                                    "https://image.tmdb.org/t/p/w500/ " + item.poster_path}
+
+
+                            />
+                        )}
+
+                    < /CardsContainer>
+                )}
+                <LoadMore onClick={() => {
+                    setPage(page + 1);
+                    dispatch(getMovies(page, Movies))
+                }}
+                          isLoading={state.moviesState?.isLoading}>Load more...</LoadMore>
+            </InnerSection>
+        </FlexColumn>
+    );
 }
 
 export default HomeScreen;
