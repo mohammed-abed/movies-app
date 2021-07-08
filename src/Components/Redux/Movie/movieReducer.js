@@ -12,11 +12,8 @@ export const movieReducer = (
         movies: [],
         isLoading: false,
         // movie: [],//?
-        movie: {
-            movie: {},
-            isLoading: false,
-        },
-        success: true,
+        movie: [],
+        success: false,
         error: "",
     },
     action
@@ -32,7 +29,7 @@ export const movieReducer = (
             return {
                 ...initialState,
                 isLoading: false,
-                movies: [...initialState.movies, action.payload],
+                movies: [...initialState.movies, ...action.payload],
                 success: true,
             };
         case GET_MOVIES_FAILED:

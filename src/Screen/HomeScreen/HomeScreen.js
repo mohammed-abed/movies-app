@@ -40,21 +40,17 @@ function HomeScreen(props) {
             </HeroSection>
             <InnerSection>
                 <MoviesTitle>Popular Movies</MoviesTitle>
-                {state.moviesState.isLoading ? (<SpinnerContainer/>) : (
+                {state.moviesState?.isLoading? (<SpinnerContainer/>) : (
                     <CardsContainer>
-
-                        {Movies.map((item) =>
-                            <Card
+                        {Movies?.map((item) => <Card
                                 key={item.id}
                                 id={item.id}
                                 to={'/movie/' + item.id + "/" + item.title}
                                 name={"img"}
-                                poster_path={
-                                    "https://image.tmdb.org/t/p/w500/ " + item.poster_path}
+                                img={
+                                    "https://image.tmdb.org/t/p/w500/" + item.poster_path}
 
-//{
-                                //                       `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                                //                     }
+
                             />
                         )}
 

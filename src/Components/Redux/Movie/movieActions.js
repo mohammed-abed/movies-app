@@ -34,7 +34,7 @@ export const getMoviesById = (id) => async (dispatch) => {
     });
 
     try {
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=dcf2d1463b5703e25fc8d86eb0fce187&language=en-US`);
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=dcf2d1463b5703e25fc8d86eb0fce187`);
         dispatch({
             type: GET_MOVIES_BY_ID_SUCCESS,
             payload: response.data,

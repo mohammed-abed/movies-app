@@ -22,15 +22,18 @@ function MovieScreen(props) {
     const dispatch = useDispatch()
     const params = useParams();
     const state = useSelector(state => state)
+    const Movie = state.moviesState.movie
+
     useEffect(() => {
         dispatch(getMoviesById(params.id))
     }, [dispatch, params.id])
-    const Movie = state.moviesState.movie
+
+
     console.log(Movie)
-    return (state.moviesState.isLoading ? (
+
+    return (state.moviesState.isLoading? (
         <SpinnerContainer/>
     ) : (
-
         <FlexColumn>
             <NavigatorContainer>
                 <NavigatorInnerContainer>
@@ -39,14 +42,13 @@ function MovieScreen(props) {
                 </NavigatorInnerContainer>
             </NavigatorContainer>
             <HeroSection
-                img={"http://image.tmdb.org/t/p/w1280/620hnMVLu6RSZW6a5rwO8gqpt0t.jpg" + Movie?.poster_path}
+                img={"https://image.tmdb.org/t/p/w500/" + Movie?.backdrop_path}
             >
                 <InnerHeroSection>
                     <MovieInfoBox>
                         <MovieImage
                             src={
-                                "http://image.tmdb.org/t/p/w1280//jTswp6KyDYKtvC52GbHagrZbGvD.jpg" + Movie?.poster_path
-                            }
+                                "https://image.tmdb.org/t/p/w500/" + Movie?.backdrop_path}
                             alt={"movie name"}
                         />
                         <MovieDetailsBox>
@@ -83,16 +85,16 @@ function MovieScreen(props) {
             <InnerSection>
                 <MoviesTitle>Actors</MoviesTitle>
                 <CardsContainer>
-                    {Movie?.production_companies.map((item) => <ActorCard
+               {/*     {Movie?.production_companies.map((item) => <ActorCard
                             key={item.id}
                             id={""}
                             name={item.name}
                             img={
-                                `https://image.tmdb.org/t/p/w500${item.logo_path}`
+                                "`"https://image.tmdb.org/t/p/w500/"+item.logo_path}`
                             }
                         />
                     )}
-
+*/}
                 </CardsContainer>
             </InnerSection>
         </FlexColumn>
