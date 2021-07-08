@@ -1,18 +1,25 @@
 import {
-    GET_MOVIES_BY_ID_FAILED, GET_MOVIES_BY_ID_START,
+    GET_MOVIES_BY_ID_FAILED,
+    GET_MOVIES_BY_ID_START,
     GET_MOVIES_BY_ID_SUCCESS,
     GET_MOVIES_FAILED,
     GET_MOVIES_START,
     GET_MOVIES_SUCCESS
 } from "./movieTypes";
 
-export const movieReducer=(
+export const movieReducer = (
     initialState = {
-                             movies: [],
-                               isLoading: false,
-                               movie: [],
-                           },
-                           action
+        movies: [],
+        isLoading: false,
+        // movie: [],//?
+        movie: {
+            movie: {},
+            isLoading: false,
+        },
+        success: true,
+        error: "",
+    },
+    action
 ) => {
     switch (action.type) {
         /** Cases*/
@@ -25,32 +32,40 @@ export const movieReducer=(
             return {
                 ...initialState,
                 isLoading: false,
-                sliderImages: action.payload,
+                movies: [...initialState.movies, action.payload],
+                success: true,
             };
         case GET_MOVIES_FAILED:
             return {
                 ...initialState,
                 isLoading: false,
                 error: action.payload,
+
             };
 
 
         case GET_MOVIES_BY_ID_START:
             return {
                 ...initialState,
-                isLoading: true,
+                movie: {
+                    isLoading: true,
+                }
             };
         case GET_MOVIES_BY_ID_SUCCESS:
             return {
                 ...initialState,
-                isLoading: false,
-                sliderImages: action.payload,
+                movie: {
+                    movie: action.payload,
+                    isLoading: false,
+                },
             };
         case GET_MOVIES_BY_ID_FAILED:
             return {
                 ...initialState,
-                isLoading: false,
-                error: action.payload,
+                movie: {
+                    isLoading: false,
+                    error: action.payload,
+                },
             };
         default:
             return initialState;

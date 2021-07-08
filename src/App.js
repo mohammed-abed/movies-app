@@ -14,7 +14,7 @@ function App() {
             <Route  exact={true} path={"/"} component={HomeScreen}/>
             <Route  exact={true} path={"/movie/:id"} component={MovieScreen}/>
         </Switch>
-      <MovieScreen />
+      {/*<MovieScreen />*/}
     </MainContainer>
   );
 }

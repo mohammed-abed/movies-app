@@ -1,7 +1,13 @@
-import {GET_MOVIES_BY_ID_START, GET_MOVIES_FAILED, GET_MOVIES_START, GET_MOVIES_SUCCESS} from "./movieTypes";
+import {
+    GET_MOVIES_BY_ID_START,
+    GET_MOVIES_BY_ID_SUCCESS,
+    GET_MOVIES_FAILED,
+    GET_MOVIES_START,
+    GET_MOVIES_SUCCESS
+} from "./movieTypes";
 import axios from "axios";
 
-export const getMovies = () => async (dispatch) => {
+export const getMovies = (page) => async (dispatch) => {
     dispatch({
         type: GET_MOVIES_START,
     });
@@ -17,12 +23,12 @@ export const getMovies = () => async (dispatch) => {
     } catch (e) {
         dispatch({
             type: GET_MOVIES_FAILED,
-            payload: e?.response?.data.message, //??
+            payload: e?.response?.message, //??
         });
     }
 };
 
-export const getMoviesById = () => async (dispatch) => {
+export const getMoviesById = (id) => async (dispatch) => {
     dispatch({
         type: GET_MOVIES_BY_ID_START,
     });
@@ -36,7 +42,7 @@ export const getMoviesById = () => async (dispatch) => {
     } catch (e) {
         dispatch({
             type: GET_MOVIES_FAILED,
-            payload: e?.response?.data.results, //??
+            payload: e?.response?.message, //??
         });
     }
 };

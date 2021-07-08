@@ -16,21 +16,16 @@ import {getMovies} from "../../Components/Redux/Movie/movieActions";
 function HomeScreen(props) {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
-    // const isLoading = return state.movie.isLoading;
     let movies = [];
     const [page, setPage] = useState(1)
-    let mov = []
+    const Movies = state.moviesState.movies
+
     useEffect(() => {
         dispatch(getMovies(page, movies))
     }, [dispatch])
 
-    const Movies = state.moviesState.movies
+    console.log(Movies)
 
-    //  const movies=[];
-    //   const LoadMore=[];
-    useEffect(() => {
-        dispatch(getMovies(page, mov))
-    }, [dispatch]);//.store.result.data
     return (
         <FlexColumn>
             <HeroSection
@@ -57,7 +52,9 @@ function HomeScreen(props) {
                                 poster_path={
                                     "https://image.tmdb.org/t/p/w500/ " + item.poster_path}
 
-
+//{
+                                //                       `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                                //                     }
                             />
                         )}
 
