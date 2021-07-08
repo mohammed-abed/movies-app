@@ -14,7 +14,7 @@ import {
 } from "./MovieScreen.Styles";
 import ActorCard from "../../Components/ActorCard/ActorCard";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router";
+import {useHistory, useParams} from "react-router";
 import {useEffect} from "react";
 import {getMoviesById} from "../../Components/Redux/Movie/movieActions";
 
@@ -22,7 +22,9 @@ function MovieScreen(props) {
     const dispatch = useDispatch()
     const params = useParams();
     const state = useSelector(state => state)
-    const Movie = state.moviesState.movie
+    const history = useHistory();
+
+    const Movie = state.moviesState.movie.movie
 
     useEffect(() => {
         dispatch(getMoviesById(params.id))
@@ -31,13 +33,13 @@ function MovieScreen(props) {
 
     console.log(Movie)
 
-    return (state.moviesState.isLoading? (
+    return (state?.moviesState?.isLoading ? (
         <SpinnerContainer/>
     ) : (
         <FlexColumn>
             <NavigatorContainer>
                 <NavigatorInnerContainer>
-                    <NavigatorSpan>Back</NavigatorSpan>
+                    <NavigatorSpan onClick={() => history.goBack()}>Back</NavigatorSpan>
                     <NavigatorSpan>/{Movie?.title}</NavigatorSpan>
                 </NavigatorInnerContainer>
             </NavigatorContainer>
@@ -48,7 +50,7 @@ function MovieScreen(props) {
                     <MovieInfoBox>
                         <MovieImage
                             src={
-                                "https://image.tmdb.org/t/p/w500/" + Movie?.backdrop_path}
+                                "https://image.tmdb.org/t/p/w500/" + Movie?.poster_path}
                             alt={"movie name"}
                         />
                         <MovieDetailsBox>
@@ -85,16 +87,47 @@ function MovieScreen(props) {
             <InnerSection>
                 <MoviesTitle>Actors</MoviesTitle>
                 <CardsContainer>
-               {/*     {Movie?.production_companies.map((item) => <ActorCard
-                            key={item.id}
-                            id={""}
-                            name={item.name}
-                            img={
-                                "`"https://image.tmdb.org/t/p/w500/"+item.logo_path}`
-                            }
-                        />
-                    )}
-*/}
+                    <ActorCard
+                        key={1}
+                        id={""}
+                        name={"img"}
+                        img={
+                            "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
+                        }
+                    />
+                    <ActorCard
+                        key={1}
+                        id={""}
+                        name={"img"}
+                        img={
+                            "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
+                        }
+                    />
+                    <ActorCard
+                        key={1}
+                        id={""}
+                        name={"img"}
+                        img={
+                            "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
+                        }
+                    />
+                    <ActorCard
+                        key={1}
+                        id={""}
+                        name={"img"}
+                        img={
+                            "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
+                        }
+                    />
+                    <ActorCard
+                        key={1}
+                        id={""}
+                        name={"img"}
+                        img={
+                            "https://image.tmdb.org/t/p/w500//udDclJoHjfjb8Ekgsd4FDteOkCU.jpg"
+                        }
+                    />
+
                 </CardsContainer>
             </InnerSection>
         </FlexColumn>

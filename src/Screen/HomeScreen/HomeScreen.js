@@ -16,13 +16,13 @@ import {getMovies} from "../../Components/Redux/Movie/movieActions";
 function HomeScreen(props) {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
-    let movies = [];
     const [page, setPage] = useState(1)
     const Movies = state.moviesState.movies
+    // let movies = [];
 
     useEffect(() => {
-        dispatch(getMovies(page, movies))
-    }, [dispatch])
+        dispatch(getMovies(page))
+    }, [dispatch, page])
 
     console.log(Movies)
 
@@ -40,7 +40,7 @@ function HomeScreen(props) {
             </HeroSection>
             <InnerSection>
                 <MoviesTitle>Popular Movies</MoviesTitle>
-                {state.moviesState?.isLoading? (<SpinnerContainer/>) : (
+                {state.moviesState?.isLoading ? (<SpinnerContainer/>) : (
                     <CardsContainer>
                         {Movies?.map((item) => <Card
                                 key={item.id}
@@ -56,11 +56,13 @@ function HomeScreen(props) {
 
                     < /CardsContainer>
                 )}
-                <LoadMore onClick={() => {
-                    setPage(page + 1);
-                    dispatch(getMovies(page, Movies))
-                }}
-                          isLoading={state.moviesState?.isLoading}>Load more...</LoadMore>
+                <LoadMore
+                    onClick={() => {
+                        setPage(page + 1);
+                        // dispatch(getMovies(page, Movies))
+                    }}
+                    isLoading={false}>Load more...</LoadMore>
+                {/*isLoading={state.moviesState?.isLoading}*/}
             </InnerSection>
         </FlexColumn>
     );

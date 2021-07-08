@@ -19,7 +19,7 @@ export const movieReducer = (
     action
 ) => {
     switch (action.type) {
-        /** Cases*/
+        /** get movies Cases*/
         case GET_MOVIES_START:
             return {
                 ...initialState,
@@ -40,6 +40,7 @@ export const movieReducer = (
 
             };
 
+        /** get movie by ID Cases*/
 
         case GET_MOVIES_BY_ID_START:
             return {
